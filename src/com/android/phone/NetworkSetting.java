@@ -369,7 +369,12 @@ public class NetworkSetting extends PreferenceActivity
                 for (NetworkInfo ni : result) {
                     Preference carrier = new Preference(this, null);
                     carrier.setTitle(ni.getOperatorAlphaLong());
+                    carrier.setSummary(ni.getOperatorRAT());
                     carrier.setPersistent(false);
+
+                    if( ni.getState() == NetworkInfo.State.FORBIDDEN )
+                        carrier.setEnabled(false);
+
                     mNetworkList.addPreference(carrier);
                     mNetworkMap.put(carrier, ni);
 
